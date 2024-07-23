@@ -27,7 +27,7 @@ class JadwalSiswaController extends Controller
             'nama_siswa'        => 'required',
             'kursus_siswa'      => 'required',
             'nama_instruktur'   => 'required',
-            'hari'              => 'required'
+            'hari'              => 'required|array'
         ]);
 
         if($validator->fails())
@@ -35,13 +35,16 @@ class JadwalSiswaController extends Controller
             return redirect()->back()->withInput()->withErrors($validator);
         }
 
+            // Gabungkan nilai checkbox menjadi satu string
+        $hari = implode(', ', $request->input('hari'));
+
         $datajadwal = [
             'siswa_id'      => $request->nama_siswa,
             'kursus_id'     => $request->kursus_siswa,
             'instruktur_id' => $request->nama_instruktur,
             'jam_mulai'     => $request->jam_mulai,
             'jam_selesai'     => $request->jam_selesai,
-            'hari'          => $request->hari 
+            'hari'          => $hari 
         ];
 
         JadwalSiswa::create($datajadwal);
@@ -49,11 +52,12 @@ class JadwalSiswaController extends Controller
     }
     public function update(Request $request, $id)
     {
+
          $validator = Validator::make($request->all(),[
             'nama_siswa'        => 'required',
             'kursus_siswa'      => 'required',
             'nama_instruktur'   => 'required',
-            'hari'              => 'required'
+            'hari'              => 'required|array'
         ]);
 
         if($validator->fails())
@@ -61,13 +65,16 @@ class JadwalSiswaController extends Controller
             return redirect()->back()->withInput()->withErrors($validator);
         }
 
+             // Gabungkan nilai checkbox menjadi satu string
+        $hari = implode(', ', $request->input('hari'));
+
         $datajadwal = [
             'siswa_id'      => $request->nama_siswa,
             'kursus_id'     => $request->kursus_siswa,
             'instruktur_id' => $request->nama_instruktur,
             'jam_mulai'     => $request->jam_mulai,
             'jam_selesai'     => $request->jam_selesai,
-            'hari'          => $request->hari 
+            'hari'          => $hari 
         ];
 
         JadwalSiswa::findOrFail($id)->update($datajadwal);

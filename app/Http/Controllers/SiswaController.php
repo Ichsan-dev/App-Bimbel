@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Kursus;
 use App\Models\orangtua;
 use App\Models\Siswa;
+use App\Models\SiswaKursus;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -73,7 +74,8 @@ class SiswaController extends Controller
         $orangtua->notelp   = $request->vno_telp;
         $orangtua->email    = $request->emailortu;
         $orangtua->user_id  = $userorangtua->id;
-        $orangtua->save();       
+        $orangtua->save();
+        
 
         // Create a new Siswa record
         $siswa              = new Siswa;
@@ -97,6 +99,12 @@ class SiswaController extends Controller
         }
 
         $siswa->save();
+
+        // Create new SiswaKursus record
+        $siswakursus = new SiswaKursus;
+        $siswakursus->siswa_id = $siswa->id;
+        $siswakursus->kursus_id = $request->kursus_id;
+        $siswakursus->save(); 
 
         return redirect()->route('KelolaSiswa')->with('success', 'Data berhasil ditambahkan dan akun siswa berhasil dibuat');
     }

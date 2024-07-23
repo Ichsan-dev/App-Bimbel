@@ -12,7 +12,6 @@
           <a href="#" class="d-block">{{ Auth::user()->name}}</a>
         </div>
       </div>
-
             <!-- SidebarSearch Form -->
       <div class="form-inline">
         <div class="input-group" data-widget="sidebar-search">
@@ -315,6 +314,27 @@
                               <option value="{{ $kursus->id }}">{{ $kursus->nama_kursus }}</option>
                             @endforeach
                         </select>
+                      </div>
+                      <div class="form-group">
+                          <label for="hari">Hari</label>
+                          <div>
+                              <label><input type="checkbox" name="hari[]" value="Senin" {{ isset($jadwalLes) && strpos($jadwalLes->hari, 'Senin') !== false ? 'checked' : '' }}> Senin</label>
+                              <label><input type="checkbox" name="hari[]" value="Selasa" {{ isset($jadwalLes) && strpos($jadwalLes->hari, 'Selasa') !== false ? 'checked' : '' }}> Selasa</label>
+                              <label><input type="checkbox" name="hari[]" value="Rabu" {{ isset($jadwalLes) && strpos($jadwalLes->hari, 'Rabu') !== false ? 'checked' : '' }}> Rabu</label>
+                              <label><input type="checkbox" name="hari[]" value="Kamis" {{ isset($jadwalLes) && strpos($jadwalLes->hari, 'Kamis') !== false ? 'checked' : '' }}> Kamis</label>
+                              <label><input type="checkbox" name="hari[]" value="Jumat" {{ isset($jadwalLes) && strpos($jadwalLes->hari, 'Jumat') !== false ? 'checked' : '' }}> Jumat</label>
+                              <label><input type="checkbox" name="hari[]" value="Sabtu" {{ isset($jadwalLes) && strpos($jadwalLes->hari, 'Sabtu') !== false ? 'checked' : '' }}> Sabtu</label>
+                          </div>
+                      </div>
+                      <div class="form-group" style="display: flex; justify-content:flex-start;">
+                          <div>
+                              <label for="jam_mulai">Jam Mulai</label>
+                              <input type="time" name="jam_mulai" class="form-control" id="jam_mulai" value="{{ isset($jadwalLes) ? $jadwalLes->jam_mulai : '' }}">
+                          </div>
+                          <div style="margin-left: 5%">
+                              <label for="jam_selesai">Jam Selesai</label>
+                              <input type="time" name="jam_selesai" class="form-control" id="jam_selesai" value="{{ isset($jadwalLes) ? $jadwalLes->jam_selesai : '' }}">
+                          </div>
                       </div>
                     </div>
                     <div class="modal-footer" style="display: flex; justify-content: flex-end;">
