@@ -21,42 +21,45 @@ class JadwalSiswaController extends Controller
         ]);
 
     }
-    public function store (Request $request)
+    public function store(Request $request)
     {
-        $validator = Validator::make($request->all(),[
-            'nama_siswa'        => 'required',
-            'kursus_siswa'      => 'required',
-            'nama_instruktur'   => 'required',
-            'hari'              => 'required|array'
+        $validator = Validator::make($request->all(), [
+            'nama_siswa' => 'required',
+            'hari' => 'required|array'
         ]);
 
-        if($validator->fails())
-        {
+        if ($validator->fails()) {
             return redirect()->back()->withInput()->withErrors($validator);
         }
 
-            // Gabungkan nilai checkbox menjadi satu string
+        $siswa      = Siswa::findOrFail($request->nama_siswa);
+        $kursus     = Kursus::findOrFail($siswa->kursus_id);
+        $instruktur = Instruktur::findOrFail($kursus->instruktur_id);
+
+        $nama_kursus = $kursus->nama_kursus;
+        $instruktur = $instruktur->nama_instruktur;
+
+        // Gabungkan nilai checkbox menjadi satu string
         $hari = implode(', ', $request->input('hari'));
 
         $datajadwal = [
-            'siswa_id'      => $request->nama_siswa,
-            'kursus_id'     => $request->kursus_siswa,
-            'instruktur_id' => $request->nama_instruktur,
-            'jam_mulai'     => $request->jam_mulai,
-            'jam_selesai'     => $request->jam_selesai,
-            'hari'          => $hari 
+            'siswa_id' => $request->nama_siswa,
+            'namakursus' => $nama_kursus,
+            'namainstruktur' => $instruktur,
+            'jam_mulai' => $request->jam_mulai,
+            'jam_selesai' => $request->jam_selesai,
+            'hari' => $hari
         ];
 
         JadwalSiswa::create($datajadwal);
         return redirect()->route('KelolaJadwal')->with('success', 'Data Jadwal Berhasil Ditambahkan');
     }
+
     public function update(Request $request, $id)
     {
 
          $validator = Validator::make($request->all(),[
             'nama_siswa'        => 'required',
-            'kursus_siswa'      => 'required',
-            'nama_instruktur'   => 'required',
             'hari'              => 'required|array'
         ]);
 
@@ -70,8 +73,6 @@ class JadwalSiswaController extends Controller
 
         $datajadwal = [
             'siswa_id'      => $request->nama_siswa,
-            'kursus_id'     => $request->kursus_siswa,
-            'instruktur_id' => $request->nama_instruktur,
             'jam_mulai'     => $request->jam_mulai,
             'jam_selesai'     => $request->jam_selesai,
             'hari'          => $hari 

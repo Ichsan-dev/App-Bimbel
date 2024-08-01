@@ -197,10 +197,10 @@
                     <tr>
                         <td>{{$loop->iteration}}</td>
                         <td>{{$item->siswa->nama}}</td>
-                        <td>{{$item->kursus->nama_kursus}}</td>
+                        <td>{{$item->namakursus}}</td>
                         <td>{{$item->jam_mulai}} - {{$item->jam_selesai}}</td>
                         <td>{{$item->hari}}</td>
-                        <td>{{$item->instruktur->nama_instruktur}}</td>
+                        <td>{{$item->namainstruktur}}</td>
                         <td style="Display: flex; justify-content: center; align-items:center; border: none;">
                                 <a data-toggle="modal" data-target="#modal-edit{{$item->id}}" class="btn-sm btn-warning mr-2"><i class="fas fa-pen mr-1"></i></a>
                                 <a data-toggle="modal" data-target="#modal-hapus{{ $item->id }}" class="btn-sm btn-danger"><i class="fas fa-trash-alt mr-1"></i></a>
@@ -260,7 +260,7 @@
                                                   @endforeach
                                               </select>
                                           </div>
-                                           <div class="form-group">
+                                           {{-- <div class="form-group">
                                             <label>Kursus :</label>
                                               <select name="kursus_siswa" class="form-control" id="kursus_siswa">
                                                 <option disabled value="">-- Pilih Kursus --</option>
@@ -269,7 +269,7 @@
                                                   <option value="{{ $dk->id }}">{{ $dk->nama_kursus }}</option>
                                                 @endforeach
                                               </select>
-                                          </div>
+                                          </div> --}}
                                           <div class="form-group" style="display: flex; justify-content:flex-start;">
                                             <div>
                                                 <label for="jam_mulai">Jam Mulai</label>
@@ -292,7 +292,7 @@
                                               </div>
                                           </div>
                                           <div class="form-group">
-                                            <label>Instruktur :</label>
+                                            {{-- <label>Instruktur :</label>
                                               <select name="nama_instruktur" class="form-control" id="nama_instruktur">
                                                 <option disabled value="">-- Pilih Instruktur --</option>
                                                 <option value="{{$item->instruktur_id}}">{{$item->instruktur->nama_instruktur}}</option>
@@ -300,7 +300,7 @@
                                                   <option value="{{ $i->id }}">{{ $i->nama_instruktur }}</option>
                                                 @endforeach
                                               </select>
-                                          </div>
+                                          </div> --}}
                                         </div>
                                         <div class="modal-footer" style="display: flex; justify-content: flex-end;">
                                             
@@ -344,7 +344,7 @@
                             @endforeach
                         </select>
                       </div>
-                      <div class="form-group">
+                      {{-- <div class="form-group">
                         <label>Kursus :</label>
                         <select name="kursus_siswa" class="form-control" id="kursus_siswa">
                           <option disabled value="">-- Pilih Kursus --</option>
@@ -352,7 +352,7 @@
                                <option value="{{ $k->id }}" {{ isset($jadwalLes) && $jadwalLes->kursus_id == $k->id ? 'selected' : '' }}>{{ $k->nama_kursus }}</option>
                             @endforeach
                         </select>
-                      </div>
+                      </div> --}}
                       <div class="form-group" style="display: flex; justify-content:flex-start;">
                           <div>
                               <label for="jam_mulai">Jam Mulai</label>
@@ -374,7 +374,7 @@
                               <label><input type="checkbox" name="hari[]" value="Sabtu" {{ isset($jadwalLes) && strpos($jadwalLes->hari, 'Sabtu') !== false ? 'checked' : '' }}> Sabtu</label>
                           </div>
                       </div>
-                      <div class="form-group">
+                      {{-- <div class="form-group">
                         <label>Instruktur :</label>
                         <select name="nama_instruktur" class="form-control" id="nama_instruktur">
                           <option disabled value="">-- Pilih Instruktur --</option>
@@ -382,7 +382,7 @@
                                <option value="{{ $i->id }}" {{ isset($jadwalLes) && $jadwalLes->instruktur_id == $i->id ? 'selected' : '' }}>{{ $i->nama_instruktur }}</option>
                             @endforeach
                         </select>
-                      </div>
+                      </div> --}}
                     </div>
                     <div class="modal-footer" style="display: flex; justify-content: flex-end;">
                       <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>

@@ -13,14 +13,6 @@ class KelolaKuisController extends Controller
         $questions = Question::all();
         return view('poinAkses/admin/KelolaKuis/index', compact('questions'));
     }
-
-    // Menampilkan formulir untuk membuat pertanyaan baru
-    // public function create()
-    // {
-    //     return view('poinAkses/admin/KelolaKuis/create');
-    // }
-
-    // Menyimpan pertanyaan baru ke dalam database
     public function store(Request $request)
     {
         // Validasi input
@@ -40,13 +32,6 @@ class KelolaKuisController extends Controller
         // Redirect ke halaman sebelumnya dengan pesan sukses
         return redirect()->route('KelolaKuis')->with('success', 'Pertanyaan berhasil ditambahkan.');
     }   
-    // Menampilkan formulir untuk mengedit pertanyaan
-    // public function edit($id)
-    // {
-    //     $question = Question::findOrFail($id);
-    //     return view('poinAkses/admin/KelolaKuis/edit', compact('question'));
-    // }
-
     public function update(Request $request, Question $question)
     {
         $request->validate([

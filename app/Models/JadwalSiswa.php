@@ -9,10 +9,11 @@ class JadwalSiswa extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
+     protected $fillable = [
+         
         'siswa_id',
-        'kursus_id',
-        'instruktur_id',
+        'namakursus',
+        'namainstruktur',
         'hari',
         'jam_mulai',
         'jam_selesai'
@@ -23,14 +24,8 @@ class JadwalSiswa extends Model
     {
         return $this->belongsTo(Siswa::class, 'siswa_id');
     }
-
-    // Relationship with Kursus
-    public function kursus()
-    {
-        return $this->belongsTo(Kursus::class, 'kursus_id');
-    }
     public function instruktur()
     {
-        return $this->belongsTo(Instruktur::class, 'instruktur_id');
+        return $this->belongsTo(Instruktur::class);
     }
 }

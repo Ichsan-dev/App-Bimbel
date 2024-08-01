@@ -17,14 +17,11 @@ return new class extends Migration
             $table->time('jam_mulai');
             $table->time('jam_selesai');
             $table->unsignedBigInteger('siswa_id');
-            $table->unsignedBigInteger('kursus_id');
-            $table->unsignedBigInteger('instruktur_id');
+            $table->string('namakursus', 50)->nullable();
+            $table->string('namainstruktur', 50)->nullable();
             $table->timestamps();
 
-            // Define foreign key constraints
-            $table->foreign('siswa_id')->references('id')->on('siswas')->onDelete('cascade');
-            $table->foreign('kursus_id')->references('id')->on('kursuses')->onDelete('cascade'); 
-            $table->foreign('instruktur_id')->references('id')->on('instrukturs')->onDelete('cascade'); 
+            
         });
     }
 
