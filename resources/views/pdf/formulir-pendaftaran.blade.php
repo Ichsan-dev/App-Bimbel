@@ -34,18 +34,18 @@
             font-weight: bold;
             width: 150px;
             display: inline-block;
-            vertical-align: top; /* Menjaga label tetap di atas */
+            vertical-align: top;
         }
         .form-field span {
             padding: 5px;
             border-radius: 5px;
             display: inline-block;
-            width: calc(100% - 170px); /* Menyesuaikan lebar span */
-            vertical-align: top; /* Menjaga isi form field tetap di atas */
-            margin-left: 10px; /* Memberikan jarak antara label dan isi form field */
-            background-color: #f9f9f9; /* Warna latar belakang untuk isi form field */
-            border: 1px solid #ccc; /* Garis pinggir */
-            word-wrap: break-word; /* Membungkus teks */
+            width: calc(100% - 170px);
+            vertical-align: top;
+            margin-left: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+            word-wrap: break-word;
         }
         .photo {
             text-align: center;
@@ -69,36 +69,35 @@
         <div class="date">Tanggal: {{ date('d M Y') }}</div>
         <h1>Formulir Pendaftaran Siswa</h1>
         <div class="form-field">
-            <label>Nama:</label><span>{{ $data['vnama'] }}</span>
+            <label>ID Pendaftaran:</label><span>{{ $datapendaftaran->id_pendaftaran }}</span>
         </div>
         <div class="form-field">
-            <label>Kursus:</label><span>{{ $data['kursus'] }}</span>
+            <label>Nama:</label><span>{{ $datapendaftaran->nama }}</span>
         </div>
         <div class="form-field">
-            <label>Jenis Kelamin:</label><span>{{ $data['vjenis_kelamin'] }}</span>
+            <label>Kursus:</label><span>{{ $datapendaftaran->kursus->nama_kursus ?? 'N/A' }}</span>
         </div>
         <div class="form-field">
-            <label>No Telp:</label><span>{{ $data['vno_telp'] }}</span>
+            <label>Jenis Kelamin:</label><span>{{ $datapendaftaran->jk }}</span>
         </div>
         <div class="form-field">
-            <label>Email:</label><span>{{ $data['vemail'] }}</span>
+            <label>No Telp:</label><span>{{ $datapendaftaran->no_telp }}</span>
         </div>
         <div class="form-field">
-            <label>Nama Orangtua:</label><span>{{ $data['vorangtua'] }}</span>
+            <label>Email:</label><span>{{ $datapendaftaran->email }}</span>
         </div>
         <div class="form-field">
-            <label>Email Orangtua:</label><span>{{ $data['emailortu'] }}</span>
+            <label>Nama Orangtua:</label><span>{{ $datapendaftaran->orangtua }}</span>
         </div>
         <div class="form-field">
-            <label>Tanggal Lahir:</label><span>{{ $data['vtgl'] }}</span>
+            <label>Email Orangtua:</label><span>{{ $datapendaftaran->emailortu }}</span>
         </div>
         <div class="form-field">
-            <label>Alamat:</label><span>{{ $data['valamat'] }}</span>
+            <label>Tanggal Lahir:</label><span>{{ $datapendaftaran->tgl_lahir }}</span>
         </div>
-        {{-- <div class="photo">
-            <label>Foto:</label><br>
-            <img src="{{ public_path('path_to_photo.jpg') }}" alt="Foto Siswa">
-        </div> --}}
+        <div class="form-field">
+            <label>Alamat:</label><span>{{ $datapendaftaran->alamat }}</span>
+        </div>
     </div>
 </body>
 </html>

@@ -31,7 +31,7 @@
     </div>
     <!-- /.card-header -->
     <div class="card-body">
-        <form action="{{ route('formulirstore') }}" method="POST" enctype="multipart/form-data" id="formSiswa">
+        <form action="{{ route('formulirstore') }}?export=pdf" method="POST" enctype="multipart/form-data" id="formSiswa">
             @csrf
             <div class="row">
                 <div class="col-md-6">

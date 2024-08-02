@@ -27,8 +27,9 @@ class Pendaftaran extends Model
 
     public function kursus()
     {
-         return $this->belongsTo(Kursus::class, 'kursus_id');
+        return $this->belongsTo(Kursus::class, 'kursus_id');
     }
+
 
     
     public static function generateIdPendaftaran()

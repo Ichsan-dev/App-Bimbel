@@ -24,6 +24,7 @@ class FormulirPendaftaran extends Controller
     }
     public function store(Request $request)
     {
+        // Validasi data
         $validator = Validator::make($request->all(), [
             'vnama'          => 'required|max:100',
             'kursus_id'      => 'required|exists:kursuses,id',
@@ -40,6 +41,7 @@ class FormulirPendaftaran extends Controller
             return redirect()->back()->withInput()->withErrors($validator);
         }
 
+        // Simpan data pendaftaran
         $pendaftaran = new Pendaftaran;
         $pendaftaran->id_pendaftaran = Pendaftaran::generateIdPendaftaran(); // Generate ID pendaftaran otomatis
         $pendaftaran->nama           = $request->vnama;
@@ -51,9 +53,15 @@ class FormulirPendaftaran extends Controller
         $pendaftaran->tgl_lahir      = $request->vtgl;
         $pendaftaran->alamat         = $request->valamat;
         $pendaftaran->jk             = $request->vjenis_kelamin;
+
         $pendaftaran->save();
 
-        return redirect()->route('formulirpendaftaran')->with('success', 'Data berhasil tersimpan');
+        // Muat ulang pendaftaran dengan relasi kursus
+        $pendaftaran = Pendaftaran::with('kursus')->find($pendaftaran->id);
+
+        // Generate PDF
+        $pdf = Pdf::loadView('pdf.formulir-pendaftaran', ['datapendaftaran' => $pendaftaran]);
+        return $pdf->stream('formulir-pendaftaran.pdf');
     }
 
     public function index(Request $request)
