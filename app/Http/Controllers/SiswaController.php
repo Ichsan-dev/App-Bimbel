@@ -64,7 +64,6 @@ class SiswaController extends Controller
         $userorangtua->email    = $request->emailortu;
         $userorangtua->password = Hash::make('123456'); // Set a default password
         $userorangtua->role     = 'orantua'; // Set role to 'siswa'
-
         $userorangtua->save();
 
         //crete new orangtua 

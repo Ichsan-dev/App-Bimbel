@@ -5,17 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Formulir Pendaftaran</title>
-    <!-- Google Font: Source Sans Pro -->
+  <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="{{asset('AdminLTE/plugins/fontawesome-free/css/all.min.css')}}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{asset('AdminLTE/dist/css/adminlte.min.css')}}">
-  {{-- <link rel="stylesheet" href="{{asset('AdminLTE/Style/formulirpendaftaran.css')}}"> --}}
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-  <!-- Select2 JavaScript -->
   <link rel="icon" type="image/png" href="{{ asset('halaman_auth/images/icons/logopalsu.ico') }}" />
 </head>
 <body>
@@ -34,10 +31,14 @@
     </div>
     <!-- /.card-header -->
     <div class="card-body">
-        <form action="{{ route('formulircetak') }}" method="POST" enctype="multipart/form-data" id="formSiswa">
+        <form action="{{ route('formulirstore') }}" method="POST" enctype="multipart/form-data" id="formSiswa">
             @csrf
             <div class="row">
                 <div class="col-md-6">
+                    <div class="form-group">
+                        <label>ID Pendaftaran</label>
+                        <input type="text" class="form-control" id="idpendaftaran" name="idpendaftaran" readonly>
+                    </div>
                     <div class="form-group">
                         <label>Nama Lengkap</label>
                         <input type="text" class="form-control" id="nama" placeholder="Bada Budi" name="vnama" value="">
@@ -48,13 +49,11 @@
                     <!-- /.form-group -->
                     <div class="form-group">
                         <label>Kursus :</label>
-                        <select name="kursus" class="form-control" id="kursus_id">
-                            <option disabled value="">-- Pilih Kursus --</option>
-                            <option value="Calistung">Calistung</option>
-                            <option value="Prismakulator">Prismakulator</option>
-                            <option value="BTQ Baca Tulis Al-quran">BTQ (Baca Tulis Al Qur'an)</option>
-                            <option value="Bahasa Inggris">Bahasa Inggris</option>
-                            <option value="Mathe">Mathe</option>
+                        <select name="kursus_id" class="form-control" id="kursus_id">
+                        <option disabled value="">-- Pilih Kursus --</option>
+                        @foreach($datakursus as $item)
+                            <option value="{{ $item->id }}">{{ $item->nama_kursus }}</option>
+                        @endforeach
                         </select>
                     </div>
                     <!-- /.form-group -->
@@ -76,6 +75,10 @@
                         <small>{{ $message }}</small>
                         @enderror
                     </div>
+                </div>
+                <!-- /.col -->
+                <div class="col-md-6">
+                    <!-- /.form-group -->
                     <div class="form-group">
                         <label for="exampleInputEmail">Email</label>
                         <input type="text" class="form-control" id="email" placeholder="Cth: 123@abc.com" name="vemail" value="">
@@ -83,10 +86,6 @@
                         <small>{{ $message }}</small>
                         @enderror
                     </div>
-                </div>
-                <!-- /.col -->
-                <div class="col-md-6">
-                    <!-- /.form-group -->
                     <div class="form-group">
                         <label for="orangtua">Wali/Orang Tua</label>
                         <input type="text" name="vorangtua" class="form-control" placeholder="Budi, S.kom" id="orangtua">
@@ -96,8 +95,8 @@
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail">Email orangtua</label>
-                        <input type="text" class="form-control" id="email" placeholder="Cth: 123@abc.com" name="emailortu" value="">
-                        @error('vemail')
+                        <input type="text" class="form-control" id="emailortu" placeholder="Cth: 123@abc.com" name="emailortu" value="">
+                        @error('emailortu')
                         <small>{{ $message }}</small>
                         @enderror
                     </div>
@@ -114,46 +113,52 @@
                         <small>{{ $message }}</small>
                         @enderror
                     </div>
-                    {{-- <div class="form-group">
-                        <label for="image">Foto </label>
-                        <input type="file" name="vfoto" id="image" class="form-control-file">
-                        <img src="" alt="Current Image" style="max-width: 200px;">
-                    </div> --}}
                 </div>
                 <!-- /.col -->
             </div>
     </div>
     <!-- /.card-body -->
     <div class="card-footer">
-        <button type="submit" class="btn btn-success">Cetak</button>
-        {{-- <button type="button" class="btn btn-warning" onclick="previewPDF()">Pratinjau</button> --}}
+        <button type="submit" class="btn btn-success">Simpan</button>
         <button type="button" class="btn btn-danger" onclick="clearForm()">Hapus</button>
     </div>
     </form>
 </div>
 
 <script>
-    function previewPDF() {
-        document.getElementById('formSiswa').setAttribute('action', '{{ route('formulircetak') }}?preview=true');
-        document.getElementById('formSiswa').setAttribute('target', '_blank');
-        document.getElementById('formSiswa').submit();
-        document.getElementById('formSiswa').setAttribute('action', '{{ route('formulircetak') }}');
-        document.getElementById('formSiswa').removeAttribute('target');
-    }
-</script>
-<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        fetch('/pendaftaran/next-id')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('idpendaftaran').value = data.nextId;
+            });
+    });
+
     function clearForm() {
         // Get the form element
         var form = document.getElementById('formSiswa');
         // Reset the form (this clears all input fields)
         form.reset();
-        }
+        fetch('/pendaftaran/next-id')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('idpendaftaran').value = data.nextId;
+            });
+    }
 </script>
+
+@if ($message = Session::get('success'))
+    <script>
+        Swal.fire({
+            icon: "success",
+            text: "{{ $message }}",
+        });
+    </script>
+@endif
 
 <!-- jQuery -->
 <script src="{{asset('AdminLTE/plugins/jquery/jquery.min.js')}}"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
 <!-- Bootstrap 4 -->
 <script src="{{asset('AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <!-- AdminLTE App -->

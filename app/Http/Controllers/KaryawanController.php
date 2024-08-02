@@ -96,7 +96,10 @@ class KaryawanController extends Controller
             'valamat'        => 'required',
         ]);
 
-        if($validator->fails()) return redirect()->back()->withInput()->withErrors($validator);
+        if($validator->fails()){
+        return redirect()->back()->withInput()->withErrors($validator);
+        }
+         
 
         $data = [
             'nama'          => $request->vnama,

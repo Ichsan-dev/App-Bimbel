@@ -80,6 +80,14 @@
               </p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="{{route('KelolaPendaftaran')}}" class="nav-link active">
+              <i class="fas fa-user-plus nav-icon"></i>
+              <p>
+                Kelola Pendaftaran
+              </p>
+            </a>
+          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

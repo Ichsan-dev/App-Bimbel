@@ -44,8 +44,9 @@ Route::middleware(['guest'])->group(function(){
         Route::post('/login-proses', [LoginController::class, 'login_proses'])->name('login-proses');
         Route::get('/register', [LoginController::class, 'register'])->name('register');
         Route::post('/register-proses', [LoginController::class, 'register_proses'])->name('register-proses');
-        Route::get('Formulir/Pendaftaran', [FormulirPendaftaran::class, 'index'])->name('formulirpendaftaran');
-        Route::post('Formulir/Cetak', [FormulirPendaftaran::class, 'cetak'])->name('formulircetak');
+        Route::get('Formulir/Pendaftaran', [FormulirPendaftaran::class, 'formulir'])->name('formulirpendaftaran');
+        Route::get('pendaftaran/next-id', [FormulirPendaftaran::class, 'getNextId']);
+        Route::post('Formulir/Store', [FormulirPendaftaran::class, 'store'])->name('formulirstore');
 });
 Route::middleware(['auth'])->group(function(){
         Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
@@ -93,6 +94,12 @@ Route::middleware(['auth'])->group(function(){
 
         Route::get('/admin/setting', [SettingController::class, 'index'])->name('SettingWebsite')->middleware('userAccess:admin');
         Route::put('/setting/update/{id}', [SettingController::class, 'update'])->name('SettingUpdate')->middleware('userAccess:admin');
+
+        Route::get('admin/pendaftaran', [FormulirPendaftaran::class, 'index'])->name('KelolaPendaftaran')->middleware('userAccess:admin');
+        Route::get('admin/pendaftaran/edit/{id}', [FormulirPendaftaran::class, 'edit'])->name('EditPendaftaran')->middleware('userAccess:admin');
+        Route::put('admin/pendaftaran/update/{id}', [FormulirPendaftaran::class, 'update'])->name('FormulirUpdate')->middleware('userAccess:admin');
+        Route::post('admin/post/{id}', [FormulirPendaftaran::class, 'upload'])->name('PendaftaranUpload')->middleware('userAccess:admin');
+        Route::delete('delete/{id}', [FormulirPendaftaran::class, 'destroy'])->name('DeletePendaftaran')->middleware('userAccess:admin');
 
         Route::get('/operator/jabatan', [JabatanController::class, 'index'])->name('KelolaJabatan')->middleware('userAccess:operator');
         Route::delete('jabatan/delete/{id}', [JabatanController::class, 'destroy'])->name('JabatanDelete')->middleware('userAccess:operator');
