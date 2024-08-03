@@ -110,10 +110,10 @@
                     <tr>
                         <td>{{$loop->iteration}}</td>
                         <td>{{$item->siswa->nama}}</td>
-                        <td>{{$item->kursus->nama_kursus}}</td>
+                        <td>{{$item->namakursus}}</td>
                         <td>{{$item->jam_mulai}} - {{$item->jam_selesai}}</td>
                         <td>{{$item->hari}}</td>
-                        <td>{{$item->instruktur->nama_instruktur}}</td>
+                        <td>{{$item->namainstruktur}}</td>
                     </tr>
                     @endforeach
                   </tbody>

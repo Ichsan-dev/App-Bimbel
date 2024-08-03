@@ -104,7 +104,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{route('KelolaPendaftaran')}}" class="nav-link active">
+            <a href="{{route('KelolaPendaftaran')}}" class="nav-link">
               <i class="fas fa-user-plus nav-icon"></i>
               <p>
                 Kelola Pendaftaran

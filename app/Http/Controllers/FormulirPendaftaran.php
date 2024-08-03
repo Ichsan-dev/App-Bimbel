@@ -138,8 +138,18 @@ class FormulirPendaftaran extends Controller
         $calonsiswa = Pendaftaran::findOrFail($id);
         $kursus     = Kursus::findOrFail($calonsiswa->kursus_id);
 
+        // Check if user email already exists
+        $existingUser = User::where('email', $calonsiswa->email)->first();
+        if ($existingUser) {
+            return redirect()->route('KelolaPendaftaran')->with('error', 'Siswa sudah terdaftar.');
+        }
 
-            // Create a new User account for the Siswa
+        $existingOrangtua = User::where('email', $calonsiswa->emailortu)->first();
+        if ($existingOrangtua) {
+            return redirect()->route('KelolaPendaftaran')->with('error', 'Email orang tua sudah terdaftar.');
+        }
+
+        // Create a new User account for the Siswa
         $user           = new User;
         $user->name     = $calonsiswa->nama;
         $user->email    = $calonsiswa->email;
@@ -186,7 +196,7 @@ class FormulirPendaftaran extends Controller
 
         $siswakursus = new SiswaKursus;
         $siswakursus->siswa_id = $siswa->id;
-        $siswakursus->kursus_id = $request->kursus_id;
+        $siswakursus->kursus_id = $kursus->id;
         $siswakursus->save(); 
         return redirect()->route('KelolaPendaftaran')->with('success', 'Data Pendaftaran Berhasil Di Upload');
     }

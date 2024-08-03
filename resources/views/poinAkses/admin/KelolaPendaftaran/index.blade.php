@@ -256,6 +256,15 @@
                 });
             </script>
     @endif
+    @if ($message = Session::get('error'))
+        <script>
+          Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "{{ $message }}",
+        });
+        </script>
+    @endif
     </div>
     <!-- /.content -->
 @endsection
