@@ -75,27 +75,26 @@
             <table class="karyawan">
                 <tr>
                     <th>Nama</th>
-                    <td>{{$karyawan->nama}}</td>
+                    <td>{{ $karyawan->nama }}</td>
                     <th>Alamat</th>
-                    <td>{{$karyawan->alamat}}</td>
+                    <td>{{ $karyawan->alamat }}</td>
                 </tr>
                 <tr>
                     <th>Jabatan</th>
-                    <td>{{$karyawan->jabatan->nama_jabatan}}</td>
+                    <td>{{ $karyawan->jabatan->nama_jabatan }}</td>
                     <th>Telepon</th>
                     <td>031-1234567</td>
                 </tr>
                 <tr>
                     <th>Tanggal</th>
-                    <td>{{date('d M Y')}}</td>
+                    <td>{{ date('d M Y') }}</td>
                 </tr>
             </table>
 
             <table class="details">
                 <thead>
-                      @foreach ($cekgaji as $item)
                     <tr>
-                        <td colspan="3" class="bulan">{{$item->bulan}}</td>
+                        <td colspan="3" class="bulan">{{ $cekgaji->bulan }}</td>
                     </tr>
                     <tr>
                         <th>NO</th>
@@ -107,24 +106,23 @@
                     <tr>
                         <td>1</td>
                         <td>Gaji Pokok</td>
-                        <td>{{$item->gaji_pokok}}</td>
+                        <td>{{ $cekgaji->gaji_pokok }}</td>
                     </tr>
                     <tr>
                         <td>2</td>
-                        <td>Tunjangan Transportt</td>
-                        <td>{{$item->tunjangan_transport}}</td>
+                        <td>Tunjangan Transport</td>
+                        <td>{{ $cekgaji->tunjangan_transport }}</td>
                     </tr>
                     <tr>
                         <td>3</td>
                         <td>Tunjangan Makan</td>
-                        <td>{{$item->tunjangan_makan}}</td>
+                        <td>{{ $cekgaji->tunjangan_makan }}</td>
                     </tr>
                     <tr>
                         <td colspan="2" class="total">TOTAL DITERIMA</td>
-                        <td>{{$item->total_gaji}}</td>
+                        <td>{{ $cekgaji->total_gaji }}</td>
                     </tr>
                 </tbody>
-                @endforeach
             </table>
         </div>
 
@@ -132,7 +130,7 @@
             <p>{{ $terbilang_gaji }}</p>
             <p>Penerima,</p>
             <br><br>
-            <p>{{$karyawan->nama}}</p>
+            <p>{{ $karyawan->nama }}</p>
             <p>BIMBEL RUMAH PINUS</p>
         </div>
     </div>

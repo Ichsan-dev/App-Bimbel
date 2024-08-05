@@ -112,7 +112,7 @@
                         <td>{{$item->tunjangan_transport}}</td>
                         <td>{{$item->total_gaji}}</td>
                         <td style="display: flex; justify-content: center; align-items:center; border: none;">
-                            <a href="{{ route('CetakGaji') }}" class="btn-sm btn-success" target="_blank">
+                            <a href="{{ route('CetakGaji', ['id' => $item->id]) }}" class="btn-sm btn-success" target="_blank">
                                 <i class="fas fa-print"></i>
                             </a>
                         </td>

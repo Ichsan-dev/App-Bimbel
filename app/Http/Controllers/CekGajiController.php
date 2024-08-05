@@ -51,7 +51,7 @@ class CekGajiController extends Controller
         return trim($result);
     }
 
-    public function cetak()
+  public function cetak($id)
     {
         $user = Auth::user();
         $karyawan = $user->karyawan;
@@ -61,11 +61,11 @@ class CekGajiController extends Controller
             return redirect()->back()->with('error', 'Karyawan tidak ditemukan untuk pengguna ini.');
         }
 
-        // Mengambil data gaji yang sesuai dengan karyawan_id dari user yang sedang login
-        $cekgaji = GajiKaryawan::where('karyawan_id', $karyawan->id)->get();
+        // Mengambil data gaji yang sesuai dengan id
+        $cekgaji = GajiKaryawan::findOrFail($id);
 
-        // Menghitung total gaji
-        $total_gaji = $cekgaji->sum('total_gaji');
+        // Menghitung total gaji hanya untuk bulan tertentu
+        $total_gaji = $cekgaji->total_gaji;
         $terbilang_gaji = $this->terbilang($total_gaji) . ' rupiah';
 
         // Memuat tampilan PDF dengan data gaji karyawan
@@ -76,5 +76,6 @@ class CekGajiController extends Controller
         return response($pdf->stream('Cetak-Gaji.pdf'), 200)
             ->header('Content-Type', 'application/pdf');
     }
+
 }
 

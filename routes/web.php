@@ -168,7 +168,7 @@ Route::middleware(['auth'])->group(function(){
         Route::post('/guru/kemajuansiswa/store', [KemajuanSiswaController::class, 'store'])->name('KemajuanSiswaStore')->middleware('userAccess:guru');
         Route::delete('/guru/kemajuansiswa/delete/{id}', [KemajuanSiswaController::class, 'delete'])->name('KemajuanSiswaDelete')->middleware('userAccess:guru');
         Route::put('/guru/kemajuansiswa/update/{id}', [KemajuanSiswaController::class, 'update'])->name('KemajuanSiswaUpdate')->middleware('userAccess:guru');
-        Route::get('/guru/cetak/gaji', [CekGajiController::class, 'cetak'])->name('CetakGaji')->middleware('userAccess:guru');
+        Route::get('/guru/cetak/gaji/{id}', [CekGajiController::class, 'cetak'])->name('CetakGaji')->middleware('userAccess:guru');
 
         Route::get('/orangtua/Spp', [orangtuaController::class, 'spp'])->name('CekSpp')->middleware('userAccess:orantua');
         Route::get('/orangtua/KemajuanSiswa', [orangtuaController::class, 'KemajuanSiswa'])->name('CekKemajuanSiswa')->middleware('userAccess:orantua');
